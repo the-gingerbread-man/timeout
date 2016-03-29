@@ -1,0 +1,15 @@
+{
+  "name": "timeout",
+  "version": "0.0.1",
+  "description": "Track the time you spend on every page.",
+  "main": "popup.js",
+  "scripts": {
+    "test": "console.log(\"You chose the blue pill. What a shame.\")"
+  },
+  "author": "the-gingerbread-man, Alex Patch",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3"
+  }
+}

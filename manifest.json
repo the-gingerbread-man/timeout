@@ -1,18 +1,37 @@
 {
-	"manifest_version": 2,
-
 	"name": "TimeOut",
 
-	"description": "Track the amount of time you spend on any site.",
 	"version": "0.0.1",
+	"manifest_version": 2,
+	"description": "Track the amount of time you spend on any site.",
+	"icons": {
+		"19": "timeout_icon_19.png"
+	},
+
+	"background": {
+		"persistent": false,
+		"scripts": ["tabActivated.js", "tabIdleOrClosed.js"]
+	},
 
 	"browser_action": {
-		"default_icon": "icon.png",
+		"default_icon": {
+			"19": "timeout_icon_19.png",
+			"38": "timeout_icon_38.png"
+		},
+		"default_title": "TimeOut - Track your time",
 		"default_popup": "popup.html"
 	},
 
+	"externally_connectable": {
+		"matches": []
+	},
+
 	"permissions": [
-	"activeTab"
-	]
+		"history",
+		"idle",
+		"notifications",
+		"tabs",
+		"storage"
+	]	
 	
 }
