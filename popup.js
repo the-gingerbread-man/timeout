@@ -1,7 +1,9 @@
 "use strict";
 
-// Query localstorage, and if needed, initalize it when the popup is opened
-
+chrome.tabs.onCreated.addListener(tabObj => {
+	console.log(tabObj);
+	debugger;
+});
 
 
 class App {
@@ -9,7 +11,7 @@ class App {
 	constructor() {
 		this.node = document.createElement('div');
 		document.body.appendChild(this.node);
-		this.updateTrackingList(null, true, this.render);
+		this.updateTrackingList(null, true, this.render.bind(this));
 	}
 
 	/* App.updateTrackingList - Add new websites to the list of sites being tracked,
@@ -24,12 +26,16 @@ class App {
 
 		// Fetch storage object from chrome localstorage and store it with a variable. The rest of the function is in the callback
 		//   once the data is retrieved
-		const dataStore = {};
+		let dataStore = {};
 
-		chrome.storage.local.get(trackedWebsiteList, trackedWebsiteList => {
+		chrome.storage.local.get("trackedWebsiteList", trackedWebsiteList => {
+
+			console.log(trackedWebsiteList);
+
+			if (Object.keys(trackedWebsiteList).length === 0) reset = true;
 
 			// If the user selects "reset defaults", or if the data store has been lost, reset the data store to default settings
-			if (reset || !trackedWebsiteList) {
+			if (reset) {
 				dataStore = {
 					trackedWebsiteList: ["amazon", "buzzfeed", "facebook", "hulu", "instagram", "netflix", "pinterest", "reddit", "tumblr", "twitter", "youtube"]
 				}
@@ -53,7 +59,9 @@ class App {
 
 			chrome.storage.local.get(trackedSiteName, trackedSiteObj => {
 
-				this.node.appendChild(new PageBox(trackedSiteObj.name, trackedSiteObj.timeOn));
+				console.log(trackedSiteObj);
+
+				// this.node.appendChild(new PageBox(trackedSiteObj.name, trackedSiteObj.timeOn));
 
 			});
 		});
@@ -70,3 +78,5 @@ class PageBox {
 	}
 
 }
+
+new App();
