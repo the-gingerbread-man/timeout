@@ -5,11 +5,28 @@
 * (websiteId) - (string) shortened "nickname" for tracked page.
 * (startTime) - (double) Access time in ms since the epoch.
 */
-function stampStartTime(websiteId, startTime) {
 
-	let startTimeObj = {};
+chrome.tabs.onCreated.addListener(tabObject => {
 
-	startTimeObj[websiteId + "_start_time"] = startTime;
-	chrome.storage.local.set(startTimeObj, 
+	chrome.storage.local.get("trackedWebsiteList", trackedWebsiteList => {
+		
+		let activeTabData = {};
 
-}
+		activeTabData.startTime = Date.now;
+		activeTabData.tabID = tabObject.id;
+		
+		let siteMatch = trackedWebsiteList.reduce((acc, trackedSiteName) => {
+			if (tabObject.url.indexOf(trackedSiteName) !== -1) return trackedSiteName;
+			else return null;
+		}, null);
+
+		if (siteMatch) {
+
+
+			
+		}
+
+	});
+
+});
+
